@@ -1,14 +1,22 @@
 from sys import exit
 
+def interpret_string(s):
+    if not isinstance(s, basestring):
+        return None
+    if s.isdigit():
+        return int(s)
+    try:
+        return float(s)
+    except ValueError:
+        return None
+
 def gold_room():
     print "This room is full of gold. How much do you take?"
     
     next = raw_input("> ")
-    if "0" in next or "1" in next:
-        how_much = int(next)
-    else:
-        dead("Man, learn to type a number.")
-        
+    how_much = interpret_string(next)
+    if how_much is None:
+        dead("Man, learn to type a number.")     
     if how_much < 50:
         print "Nice, you're not greedy, you win!"
         exit(0)
